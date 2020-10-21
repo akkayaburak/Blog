@@ -1,0 +1,23 @@
+﻿@model IEnumerable<blog.website.DTO.PostDTO>
+@{
+    ViewData["Title"] = "Index";
+}
+    <div class="card w-75">
+        <div class="input-group">
+            <div class="input-group-prepend"></div>
+            <textarea class="form-control" placeholder="Who are you?" maxlength="20"></textarea>
+        </div>
+        <textarea class="form-control context mt-2" placeholder="Write something!" maxlength="180"></textarea>
+        <button type="submit" value="create" class="btn btn-outline-primary float-right mt-2 mb-2" id="createButton">Create</button>
+    </div>
+
+
+@foreach (var post in Model)
+{
+    <div class="card w-75">
+        <div class="card-body">
+            <h5 class="card-title">@post.User.Name</h5>
+            <p class="card-text">@post.Context</p>
+        </div>
+    </div>
+}

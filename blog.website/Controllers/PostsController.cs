@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace blog.website.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class PostsController : ControllerBase
+    [Route("[controller]")]
+    //[ApiController]
+    public class PostsController : Controller
     {
         private readonly IPostService _postService;
         private readonly IMapper _mapper;
@@ -23,12 +23,13 @@ namespace blog.website.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<Post>>> GetAllPosts()
+        //[HttpGet("{id}")]
+        public async Task<ActionResult<IEnumerable<Post>>> Index()
         {
             var posts = await _postService.GetAllWithUser();
             var postResources = _mapper.Map<IEnumerable<Post>, IEnumerable<PostDTO>>(posts);
-            return Ok(postResources);
+            //return Ok(postResources);
+            return View(postResources);
         }
 
         [HttpPost("")]

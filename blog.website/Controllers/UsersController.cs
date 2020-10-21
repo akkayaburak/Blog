@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace blog.website.Controllers
 {
-    [Route("api/{controller}")]
+    [Route("{controller}")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -25,7 +25,7 @@ namespace blog.website.Controllers
         }
 
         [HttpGet("")]
-        public async Task<ActionResult<IEnumerable<UserDTO>>> GetAllUsers()
+        public async Task<ActionResult<IEnumerable<UserDTO>>> Index()
         {
             var users = await _userService.GetAllUsers();
             var userResources = _mapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(users);
