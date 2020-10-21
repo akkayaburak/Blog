@@ -5,6 +5,7 @@ Simple blog.
 ## Technologies
 - [ASP.NET Core 3.1](https://docs.microsoft.com/en-us/aspnet/core/?view=aspnetcore-3.1)
 - [Entity Framework Core](https://docs.microsoft.com/en-us/ef/)
+- SQLServer Express
 - [Swagger](https://swagger.io/)
 - [AutoMapper](https://automapper.org/)
 - [FluentValidation](https://fluentvalidation.net/)
