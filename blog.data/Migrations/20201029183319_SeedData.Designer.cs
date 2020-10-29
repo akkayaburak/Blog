@@ -9,8 +9,8 @@ using blog.data;
 namespace blog.data.Migrations
 {
     [DbContext(typeof(BlogContext))]
-    [Migration("20201020122808_InitialModel")]
-    partial class InitialModel
+    [Migration("20201029183319_SeedData")]
+    partial class SeedData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
