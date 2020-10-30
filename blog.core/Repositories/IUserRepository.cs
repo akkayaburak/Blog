@@ -9,7 +9,7 @@ namespace blog.core.Repositories
     public interface IUserRepository : IRepository<User>
 
     {
-        Task<IEnumerable<User>> GetAllWithPostAsync();
-        Task<User> GetWithPostsByIdAsync(int id);
+        IEnumerable<User> GetAllWithPost();
+        User GetWithPostsById(int id);
     }
 }

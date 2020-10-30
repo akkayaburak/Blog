@@ -10,6 +10,6 @@ namespace blog.core
     {
         IPostRepository Posts { get; }
         IUserRepository Users { get; }
-        Task<int> CommitAsync();
+        void Commit();
     }
 }

@@ -8,10 +8,10 @@ namespace blog.core.Services
 {
     public interface IUserService
     {
-        Task<IEnumerable<User>> GetAllUsers();
-        Task<User> GetUserById(int id);
-        Task<User> CreateUser(User newUser);
-        Task UpdateUser(User userToBeUpdated, User user);
-        Task DeleteUser(User user);
+        IEnumerable<User> GetAllUsers();
+        User GetUserById(int id);
+        User CreateUser(User newUser);
+        void UpdateUser(User userToBeUpdated, User user);
+        void DeleteUser(User user);
     }
 }

@@ -24,19 +24,19 @@ namespace blog.website.Controllers
         }
 
         //[HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<Post>>> Index()
+        public ActionResult<IEnumerable<Post>> Index()
         {
-            var posts = await _postService.GetAllWithUser();
+            var posts =  _postService.GetAllWithUser();
             var postResources = _mapper.Map<IEnumerable<Post>, IEnumerable<PostDTO>>(posts);
             //return Ok(postResources);
             return View(postResources);
         }
 
         [HttpPost("")]
-        public async Task<ActionResult<PostDTO>> CreatePost([FromBody] SavePostDTO savePostResource)
+        public ActionResult<PostDTO> CreatePost([FromBody] SavePostDTO savePostResource)
         {
             var validator = new SavePostResourceValidator();
-            var validationResult = await validator.ValidateAsync(savePostResource);
+            var validationResult =  validator.Validate(savePostResource);
 
             if (!validationResult.IsValid)
             {
@@ -44,17 +44,17 @@ namespace blog.website.Controllers
             }
 
             var postToCreate = _mapper.Map<SavePostDTO, Post>(savePostResource);
-            var newPost = await _postService.CreatePost(postToCreate);
-            var post = await _postService.GetPostById(newPost.Id);
+            var newPost =  _postService.CreatePost(postToCreate);
+            var post =  _postService.GetPostById(newPost.Id);
             var postResource = _mapper.Map<Post, PostDTO>(post);
             return Ok(postResource);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<PostDTO>> UpdatePost(int id, [FromBody] SavePostDTO savePostResource)
+        public ActionResult<PostDTO> UpdatePost(int id, [FromBody] SavePostDTO savePostResource)
         {
             var validator = new SavePostResourceValidator();
-            var validationResult = await validator.ValidateAsync(savePostResource);
+            var validationResult =  validator.Validate(savePostResource);
 
             var requestIsInvalid = id == 0 || !validationResult.IsValid;
 
@@ -63,7 +63,7 @@ namespace blog.website.Controllers
                 return BadRequest(validationResult.Errors);
             }
 
-            var postToBeUpdate = await _postService.GetPostById(id);
+            var postToBeUpdate =  _postService.GetPostById(id);
 
             if(postToBeUpdate == null)
             {
@@ -71,27 +71,27 @@ namespace blog.website.Controllers
             }
 
             var post = _mapper.Map<SavePostDTO, Post>(savePostResource);
-            await _postService.UpdatePost(postToBeUpdate, post);
+             _postService.UpdatePost(postToBeUpdate, post);
 
-            var updatedPost = await _postService.GetPostById(id);
+            var updatedPost =  _postService.GetPostById(id);
             var updatedPostResource = _mapper.Map<Post, PostDTO>(updatedPost);
 
             return Ok(updatedPostResource);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePost(int id)
+        public IActionResult DeletePost(int id)
         {
             if (id == 0)
             {
                 return BadRequest();
             }
-            var post = await _postService.GetPostById(id);
+            var post =  _postService.GetPostById(id);
             if (post == null)
             {
                 return NotFound();
             }
-            await _postService.DeletePost(post);
+             _postService.DeletePost(post);
             return NoContent();
         }
     }

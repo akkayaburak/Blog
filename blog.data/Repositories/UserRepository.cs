@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace blog.data.Repositories
 {
@@ -15,18 +16,18 @@ namespace blog.data.Repositories
 
         }
 
-        public async Task<IEnumerable<User>> GetAllWithPostAsync()
-        {
-            return await BlogContext.Users
-                .Include(a => a.Posts)
-                .ToListAsync();
-        }
-
-        public Task<User> GetWithPostsByIdAsync(int id)
+        public IEnumerable<User> GetAllWithPost()
         {
             return BlogContext.Users
                 .Include(a => a.Posts)
-                .SingleOrDefaultAsync(a => a.Id == id);
+                .ToList();
+        }
+
+        public User GetWithPostsById(int id)
+        {
+            return BlogContext.Users
+                .Include(a => a.Posts)
+                .SingleOrDefault(a => a.Id == id);
         }
 
         private BlogContext BlogContext

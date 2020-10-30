@@ -16,13 +16,13 @@ namespace blog.data.Repositories
         {
             Context = context;
         }
-        public async Task AddAsync(TEntity entity)
+        public void Add(TEntity entity)
         {
-            await Context.Set<TEntity>().AddAsync(entity);
+             Context.Set<TEntity>().Add(entity);
         }
-        public async Task AddRangeAsync(IEnumerable<TEntity> entities)
+        public void AddRange(IEnumerable<TEntity> entities)
         {
-            await Context.Set<TEntity>().AddRangeAsync(entities);
+            Context.Set<TEntity>().AddRange(entities);
         }
 
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
@@ -30,14 +30,14 @@ namespace blog.data.Repositories
             return Context.Set<TEntity>().Where(predicate);
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        public IEnumerable<TEntity> GetAll()
         {
-            return await Context.Set<TEntity>().ToListAsync();
+            return Context.Set<TEntity>().ToList();
         }
 
-        public ValueTask<TEntity> GetByIdAsync(int id)
+        public TEntity GetById(int id)
         {
-            return Context.Set<TEntity>().FindAsync(id);
+            return Context.Set<TEntity>().Find(id);
         }
 
         public void Remove(TEntity entity)
@@ -50,9 +50,9 @@ namespace blog.data.Repositories
             Context.Set<TEntity>().RemoveRange(entities);
         }
 
-        public Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
+        public TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate)
         {
-            return Context.Set<TEntity>().SingleOrDefaultAsync(predicate);
+            return Context.Set<TEntity>().SingleOrDefault(predicate);
         }
     }
 }

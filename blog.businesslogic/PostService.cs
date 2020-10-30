@@ -16,39 +16,39 @@ namespace blog.businesslogic
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Post> CreatePost(Post newPost)
+        public Post CreatePost(Post newPost)
         {
-            await _unitOfWork.Posts.AddAsync(newPost);
-            await _unitOfWork.CommitAsync();
+             _unitOfWork.Posts.Add(newPost);
+             _unitOfWork.Commit();
             return newPost;
         }
 
-        public async Task DeletePost(Post post)
+        public void DeletePost(Post post)
         {
             _unitOfWork.Posts.Remove(post);
-            await _unitOfWork.CommitAsync();
+            _unitOfWork.Commit();
         }
 
-        public async Task<IEnumerable<Post>> GetAllWithUser()
+        public IEnumerable<Post> GetAllWithUser()
         {
-            return await _unitOfWork.Posts.GetAllWithUserAsync();
+            return  _unitOfWork.Posts.GetAllWithUser();
         }
 
-        public async Task<Post> GetPostById(int id)
+        public Post GetPostById(int id)
         {
-            return await _unitOfWork.Posts.GetByIdAsync(id);
+            return  _unitOfWork.Posts.GetById(id);
         }
 
-        public async Task<IEnumerable<Post>> GetPostsByUserId(int userId)
+        public IEnumerable<Post> GetPostsByUserId(int userId)
         {
-            return await _unitOfWork.Posts.GetAllWithUserByUserIdAsync(userId);
+            return  _unitOfWork.Posts.GetAllWithUserByUserId(userId);
         }
 
-        public async Task UpdatePost(Post postToBeUpdated, Post post)
+        public void UpdatePost(Post postToBeUpdated, Post post)
         {
             postToBeUpdated.Context = post.Context;
             postToBeUpdated.UserId = post.UserId;
-            await _unitOfWork.CommitAsync();
+             _unitOfWork.Commit();
         }
     }
 }

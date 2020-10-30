@@ -22,9 +22,9 @@ namespace blog.data
         public IPostRepository Posts => _postRepository ??= new PostRepository(_context);
         public IUserRepository Users => _userRepository ??= new UserRepository(_context);
 
-        public async Task<int> CommitAsync()
+        public void Commit()
         {
-            return await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public void Dispose()

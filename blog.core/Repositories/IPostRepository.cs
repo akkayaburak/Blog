@@ -8,9 +8,9 @@ namespace blog.core.Repositories
 {
     public interface IPostRepository : IRepository<Post>
     {
-        Task<IEnumerable<Post>> GetAllWithUserAsync();
-        Task<Post> GetWithUserByIdAsync(int id);
-        Task<IEnumerable<Post>> GetAllWithUserByUserIdAsync(int userId);
+        IEnumerable<Post> GetAllWithUser();
+        Post GetWithUserById(int id);
+        IEnumerable<Post> GetAllWithUserByUserId(int userId);
 
     }
 }

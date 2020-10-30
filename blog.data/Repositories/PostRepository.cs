@@ -16,26 +16,26 @@ namespace blog.data.Repositories
 
         }
 
-        public async Task<IEnumerable<Post>> GetAllWithUserAsync()
+        public IEnumerable<Post> GetAllWithUser()
         {
-            return await BlogContext.Posts
+            return BlogContext.Posts
                 .Include(m => m.User)
-                .ToListAsync();
+                .ToList();
         }
 
-        public async Task<Post> GetWithUserByIdAsync(int id)
+        public Post GetWithUserById(int id)
         {
-            return await BlogContext.Posts
+            return  BlogContext.Posts
                 .Include(m => m.User)
-                .SingleOrDefaultAsync(m => m.Id == id);
+                .SingleOrDefault(m => m.Id == id);
         }
 
-        public async Task<IEnumerable<Post>> GetAllWithUserByUserIdAsync(int userId)
+        public IEnumerable<Post> GetAllWithUserByUserId(int userId)
         {
-            return await BlogContext.Posts
+            return  BlogContext.Posts
                 .Include(m => m.User)
                 .Where(m => m.UserId == userId)
-                .ToListAsync();
+                .ToList();
         }
         private BlogContext BlogContext
         {

@@ -16,33 +16,33 @@ namespace blog.businesslogic
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<User> CreateUser(User newUser)
+        public User CreateUser(User newUser)
         {
-            await _unitOfWork.Users
-                .AddAsync(newUser);
+             _unitOfWork.Users
+                .Add(newUser);
             return newUser;
         }
 
-        public async Task DeleteUser(User user)
+        public void DeleteUser(User user)
         {
             _unitOfWork.Users.Remove(user);
-            await _unitOfWork.CommitAsync();
+             _unitOfWork.Commit();
         }
 
-        public async Task<IEnumerable<User>> GetAllUsers()
+        public IEnumerable<User> GetAllUsers()
         {
-            return await _unitOfWork.Users.GetAllAsync();
+            return _unitOfWork.Users.GetAll();
         }
 
-        public async Task<User> GetUserById(int id)
+        public User GetUserById(int id)
         {
-            return await _unitOfWork.Users.GetByIdAsync(id);
+            return _unitOfWork.Users.GetById(id);
         }
 
-        public async Task UpdateUser(User userToBeUpdated, User user)
+        public void UpdateUser(User userToBeUpdated, User user)
         {
             userToBeUpdated.Name = user.Name;
-            await _unitOfWork.CommitAsync();
+            _unitOfWork.Commit();
         }
     }
 }

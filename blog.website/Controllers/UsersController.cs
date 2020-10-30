@@ -25,68 +25,68 @@ namespace blog.website.Controllers
         }
 
         [HttpGet("")]
-        public async Task<ActionResult<IEnumerable<UserDTO>>> Index()
+        public ActionResult<IEnumerable<UserDTO>> Index()
         {
-            var users = await _userService.GetAllUsers();
+            var users =  _userService.GetAllUsers();
             var userResources = _mapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(users);
             return Ok(userResources);
 
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserDTO>> GetUserById(int id)
+        public ActionResult<UserDTO> GetUserById(int id)
         {
-            var user = await _userService.GetUserById(id);
+            var user = _userService.GetUserById(id);
             var userResource = _mapper.Map<User, UserDTO>(user);
             return Ok(userResource);
         }
 
         [HttpPost("")]
-        public async Task<ActionResult<UserDTO>> CreateUser([FromBody] SaveUserDTO saveUserResource)
+        public ActionResult<UserDTO> CreateUser([FromBody] SaveUserDTO saveUserResource)
         {
             var validator = new SaveUserResourceValidator();
-            var validationResult = await validator.ValidateAsync(saveUserResource);
+            var validationResult =  validator.Validate(saveUserResource);
 
             if (!validationResult.IsValid)
             {
                 return BadRequest(validationResult.Errors);
             }
             var userToCreate = _mapper.Map<SaveUserDTO, User>(saveUserResource);
-            var newUser = await _userService.CreateUser(userToCreate);
-            var user = await _userService.GetUserById(newUser.Id);
+            var newUser = _userService.CreateUser(userToCreate);
+            var user = _userService.GetUserById(newUser.Id);
             var userResource = _mapper.Map<User, UserDTO>(user);
             return Ok(userResource);
         }
         [HttpPut("{id}")]
-        public async Task<ActionResult<UserDTO>> UpdateArtist(int id, [FromBody] SaveUserDTO saveUserResource)
+        public ActionResult<UserDTO> UpdateArtist(int id, [FromBody] SaveUserDTO saveUserResource)
         {
             var validator = new SaveUserResourceValidator();
-            var validationResult = await validator.ValidateAsync(saveUserResource);
+            var validationResult =  validator.Validate(saveUserResource);
 
             if (!validationResult.IsValid)
                 return BadRequest(validationResult.Errors); // this needs refining, but for demo it is ok
 
-            var userToBeUpdated = await _userService.GetUserById(id);
+            var userToBeUpdated =  _userService.GetUserById(id);
 
             if (userToBeUpdated == null)
                 return NotFound();
 
             var artist = _mapper.Map<SaveUserDTO, User>(saveUserResource);
 
-            await _userService.UpdateUser(userToBeUpdated, artist);
+             _userService.UpdateUser(userToBeUpdated, artist);
 
-            var updatedUser = await _userService.GetUserById(id);
+            var updatedUser = _userService.GetUserById(id);
 
             var updatedUserResource = _mapper.Map<User, UserDTO>(updatedUser);
 
             return Ok(updatedUserResource);
         }
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public IActionResult DeleteUser(int id)
         {
-            var user = await _userService.GetUserById(id);
+            var user =  _userService.GetUserById(id);
 
-            await _userService.DeleteUser(user);
+            _userService.DeleteUser(user);
 
             return NoContent();
         }

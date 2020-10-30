@@ -8,11 +8,11 @@ namespace blog.core.Services
 {
     public interface IPostService
     {
-        Task<IEnumerable<Post>> GetAllWithUser();
-        Task<Post> GetPostById(int id);
-        Task<IEnumerable<Post>> GetPostsByUserId(int userId);
-        Task<Post> CreatePost(Post newPost);
-        Task UpdatePost(Post postToBeUpdated, Post post);
-        Task DeletePost(Post post);
+        IEnumerable<Post> GetAllWithUser();
+        Post GetPostById(int id);
+        IEnumerable<Post> GetPostsByUserId(int userId);
+        Post CreatePost(Post newPost);
+        void UpdatePost(Post postToBeUpdated, Post post);
+        void DeletePost(Post post);
     }
 }
