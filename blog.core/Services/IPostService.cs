@@ -14,5 +14,7 @@ namespace blog.core.Services
         Post CreatePost(Post newPost);
         void UpdatePost(Post postToBeUpdated, Post post);
         void DeletePost(Post post);
+
+        Post GetPostByName(string name);
     }
 }

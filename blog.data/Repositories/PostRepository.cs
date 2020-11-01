@@ -37,6 +37,12 @@ namespace blog.data.Repositories
                 .Where(m => m.UserId == userId)
                 .ToList();
         }
+
+        public Post GetByName(string name)
+        {
+            return BlogContext.Posts
+                .SingleOrDefault(m => m.User.Name == name);
+        }
         private BlogContext BlogContext
         {
             get { return Context as BlogContext; }

@@ -33,8 +33,12 @@ namespace blog.website.Controllers
         }
 
         [HttpPost("")]
-        public ActionResult<PostDTO> CreatePost([FromBody] SavePostDTO savePostResource)
+        public ActionResult<PostDTO> CreatePost(string context, string name)
         {
+            Post findPost = _postService.GetPostByName(name);
+            SavePostDTO savePostResource = new SavePostDTO();
+            savePostResource.Context = context;
+            savePostResource.UserId = findPost.UserId;
             var validator = new SavePostResourceValidator();
             var validationResult =  validator.Validate(savePostResource);
 

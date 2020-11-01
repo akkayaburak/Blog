@@ -50,5 +50,10 @@ namespace blog.businesslogic
             postToBeUpdated.UserId = post.UserId;
              _unitOfWork.Commit();
         }
+
+        public Post GetPostByName(string name)
+        {
+            return _unitOfWork.Posts.GetByName(name);
+        }
     }
 }

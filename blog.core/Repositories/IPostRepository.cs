@@ -12,5 +12,7 @@ namespace blog.core.Repositories
         Post GetWithUserById(int id);
         IEnumerable<Post> GetAllWithUserByUserId(int userId);
 
+        Post GetByName(string name);
+
     }
 }
